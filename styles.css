@@ -1,0 +1,562 @@
+:root {
+  --verde-oliva: #556B2F;
+  --dorado-apagado: #C2A14D;
+  --blanco-puro: #ffffff;
+  --negro-suave: #1e1e1e;
+  --spacing: 16px;
+}
+
+/* -------- GLOBAL -------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Figtree", sans-serif !important;
+  background-color: var(--blanco-puro);
+  color: var(--negro-suave);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; margin-bottom: var(--spacing); }
+h3 { font-size: 1.2rem; }
+
+p { font-size: 1rem; margin-bottom: 0.5em; }
+
+/* -------- HEADER -------- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--blanco-puro);
+  padding: var(--spacing);
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  position: relative;
+  text-align: center;
+}
+
+.logo {
+  height: 60px;
+}
+
+.cart-link {
+  position: absolute;
+  right: var(--spacing);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cart-icon {
+  height: 38px;
+}
+
+/* -------- NAV -------- */
+nav {
+  background-color: var(--dorado-apagado);
+  padding: 20px 0;
+  position: sticky;
+  top: 80px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 60px;
+  transition: all 0.3s ease;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--negro-suave);
+  font-weight: bold;
+  font-size: 1.1rem;
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--negro-suave);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* -------- MENU TOGGLE (MOBILE) -------- */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 25px;
+  font-size: 2.5rem;
+  background: none;
+  border: none;
+  color: var(--verde-oliva);
+  z-index: 1100;
+  cursor: pointer;
+}
+
+/* -------- BANNER SCROLL -------- */
+.scroll-banner {
+  background: var(--verde-oliva);
+  color: var(--blanco-puro);
+  text-align: center;
+  padding: 12px 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  overflow: hidden;
+}
+
+.scroll-banner span {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollText 18s linear infinite;
+}
+
+@keyframes scrollText {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(-100%); }
+}
+
+/* -------- HISTORIA -------- */
+.historia {
+  width: 100%;
+  margin: auto;
+  background-color: var(--verde-oliva);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* importante para el overlay */
+  overflow: hidden;
+}
+
+.historia::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    var(--verde-oliva) 0%,
+    transparent 20%,
+    transparent 80%,
+    var(--verde-oliva) 100%
+  );
+  z-index: 1; /* queda encima de la imagen */
+  pointer-events: none;
+}
+
+.historia-img {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: cover;
+  position: relative;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .historia {
+    padding-top: 100px; /* igual a la altura del header */
+  }
+}
+/* -------- PRODUCTOS -------- */
+.productos {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.slider-container {
+  padding-top: 50px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider {
+  padding-top: 10px;
+  display: flex;
+  gap: 20px;
+  transition: transform 0.5s ease;
+  justify-content: flex-start; /* empieza a la izquierda */
+}
+
+.slider-wrapper {
+  overflow-x: auto;      /* scroll horizontal si no entra */
+  scroll-snap-type: x mandatory;
+  /* Oculta el scrollbar vertical en la sección productos */
+  max-height: 100%;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  }
+
+  .slider-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.producto-item {
+  scroll-snap-align: start;
+  background-color: #fff;
+  border: 2px solid var(--verde-oliva);
+  border-radius: 12px;
+  max-width: 320px;
+  min-width: 260px;
+  padding: 16px;
+  margin: 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+
+  /* Flexbox para centrar contenido */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centra horizontalmente */
+  justify-content: center; /* centra verticalmente si hay altura fija */
+}
+
+.producto-item:hover {
+  transform: translateY(-4px);
+}
+
+.producto-item img {
+  height: 350px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+  display: block;        /* asegura que no se comporte como inline */
+}
+
+.producto-item img:hover {
+  transform: scale(1.05);
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;     /* mismo ancho */
+  height: 40px;    /* mismo alto */
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%; /* círculo perfecto */
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* -------- CATÁLOGO -------- */
+#catalogo {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.catalogo-img {
+  max-width: 95vw;
+  width: 700px;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+/* -------- MAYORISTA -------- */
+#mayorista-contacto {
+  padding: 80px 20px;
+  background-image: linear-gradient(to bottom, rgba(85, 107, 47, 0.85), rgba(194, 161, 77, 0.85)), url('cocinera.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  text-align: center;
+  color: var(--blanco-puro);
+}
+
+.form-mayorista {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-mayorista input,
+.form-mayorista textarea {
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  background: #fffbe9;
+  color: var(--negro-suave);
+}
+
+/* -------- COLLAGE -------- */
+#collage {
+  padding: 60px 20px;
+  background-color: #f8f8f8;
+}
+
+.collage-columnas {
+  column-count: 1;
+  column-gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.collage-columnas img {
+  width: 100%;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, opacity 0.5s ease;
+}
+
+.collage-columnas img:hover {
+  transform: scale(1.03);
+  opacity: 0.95;
+}
+
+/* -------- CONTACTO (mejorado con min-height y título centrado) -------- */
+#contacto {
+  background-image: url('Sin título-5.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 400px; /* altura mínima para que no quede chato */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centra el contenido verticalmente */
+  align-items: center;     /* centra horizontalmente */
+}
+
+
+#contacto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+  z-index: 0;
+  pointer-events: none;
+}
+
+#contacto h2,
+.contacto-items { 
+  position: relative; 
+  z-index: 1; 
+}
+
+#contacto h2 {
+  text-align: center;
+  color: #cecece;
+  margin-bottom: 30px;
+}
+
+.contacto-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.contacto-item {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px 25px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  min-width: 260px;
+  min-height: 70px;
+}
+
+.contacto-item:hover {
+  background-color: rgba(0, 0, 0, 0.75);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.contacto-item a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.contacto-item a:hover {
+  text-decoration: underline;
+}
+
+.icono-contacto {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+
+@media (min-width: 768px) {
+  .contacto-items {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* -------- BOTONES -------- */
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--verde-oliva);
+  color: var(--blanco-puro);
+}
+
+.btn-primary:hover {
+  background-color: #6f8a3b;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--dorado-apagado);
+  color: var(--blanco-puro);
+}
+
+.btn-secondary:hover {
+  background-color: #b08f3c;
+  transform: translateY(-2px);
+}
+
+/* -------- BOTONES FLOTANTES -------- */
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  animation: blink 1.5s infinite;
+  z-index: 1001;
+}
+
+.whatsapp img { width: 50px; height: 50px; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.btn-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: var(--dorado-apagado);
+  color: var(--blanco-puro);
+  display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* -------- FOOTER -------- */
+.footer {
+  background-color: var(--verde-oliva);
+  color: var(--blanco-puro);
+  text-align: center;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('isologo-footer.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-tagline {
+  font-size: 1rem;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.footer-copy {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* -------- RESPONSIVE -------- */
+
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 15px;
+    position: fixed;
+    top: 100px;              /* justo debajo del header */
+    left: 0;
+    width: 100%;
+    background-color: var(--dorado-apagado);
+    z-index: 999;
+  }
+
+  nav.show { display: flex; }
+
+  .menu-toggle { display: block; z-index: 1100; }
+  
+  .producto-item { min-width: 220px; }
+  .collage-columnas { column-count: 2; }
+}
+
+@media (min-width: 1024px) {
+  .collage-columnas { column-count: 3; }
+}
